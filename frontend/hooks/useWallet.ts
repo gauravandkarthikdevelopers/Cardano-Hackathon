@@ -35,6 +35,7 @@ export function useWallet() {
         globalWalletAddress = stored
         setAddress(stored)
       }
+    
     }
 
     hydrateAddress()
