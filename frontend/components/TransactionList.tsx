@@ -8,8 +8,8 @@ interface Transaction {
   proposalId: string
   communityId: string
   amount: number
-  recipientAddress: string
-  executedBy: string
+  recipientAddress?: string
+  executedBy?: string
   executedAt: number
   txHash?: string
   proposalTitle?: string
@@ -20,6 +20,11 @@ interface TransactionListProps {
 }
 
 export default function TransactionList({ transactions }: TransactionListProps) {
+  const formatShortAddress = (value?: string) => {
+    if (!value) return 'Unknown'
+    return `${value.slice(0, 20)}...`
+  }
+
   if (transactions.length === 0) {
     return (
       <div className="text-center py-12 text-gray-500 dark:text-gray-400">
@@ -52,14 +57,11 @@ export default function TransactionList({ transactions }: TransactionListProps) 
                 </p>
                 <p>
                   <span className="font-medium">To:</span>{' '}
-                  <span className="font-mono text-xs">{tx.recipientAddress.slice(0, 20)}...</span>
+                  <span className="font-mono text-xs">{formatShortAddress(tx.recipientAddress)}</span>
                 </p>
                 <p>
                   <span className="font-medium">By:</span>{' '}
-                  <span className="font-mono text-xs">{tx.executedBy.slice(0, 20)}...</span>
-                </p>
-                <p className="text-xs text-gray-500">
-                  {formatDistanceToNow(new Date(tx.executedAt), { addSuffix: true })}
+                  <span className="font-mono text-xs">{formatShortAddress(tx.executedBy)}</span>
                 </p>
               </div>
             </div>

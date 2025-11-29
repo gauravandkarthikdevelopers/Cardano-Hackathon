@@ -123,6 +123,22 @@ export default function ProposalDetail() {
   }
 
   const config = statusConfig[proposal.status]
+  const normalizeDate = (value?: number | string | null) => {
+    if (!value) return null
+    const date = new Date(value)
+    if (!Number.isNaN(date.getTime())) return date
+    if (typeof value === 'string') {
+      const numeric = Number(value)
+      if (!Number.isNaN(numeric)) {
+        const numericDate = new Date(numeric)
+        return Number.isNaN(numericDate.getTime()) ? null : numericDate
+      }
+    }
+    return null
+  }
+
+  const createdAt = normalizeDate((proposal as any).createdAt ?? (proposal as any).created_at)
+  const executedAt = normalizeDate((proposal as any).executedAt ?? (proposal as any).executed_at)
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -202,9 +218,11 @@ export default function ProposalDetail() {
             )}
 
             <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 pt-6 border-t border-gray-200 dark:border-gray-700">
-              <span>Created {formatDistanceToNow(new Date(proposal.createdAt), { addSuffix: true })}</span>
-              {proposal.executedAt && (
-                <span>Executed {formatDistanceToNow(new Date(proposal.executedAt), { addSuffix: true })}</span>
+              <span>
+                Created {createdAt ? formatDistanceToNow(createdAt, { addSuffix: true }) : 'Unknown'}
+              </span>
+              {executedAt && (
+                <span>Executed {formatDistanceToNow(executedAt, { addSuffix: true })}</span>
               )}
             </div>
           </div>

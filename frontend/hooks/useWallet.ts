@@ -7,36 +7,43 @@ let globalWalletAddress: string | null = null
 const walletListeners = new Set<(addr: string | null) => void>()
 
 function notifyWalletListeners(addr: string | null) {
-  walletListeners.forEach(listener => listener(addr))
+  walletListeners.forEach((listener) => listener(addr))
 }
 
-function initializeAddressFromStorage() {
+function readAddressFromStorage() {
   if (typeof window === 'undefined') return null
-  if (globalWalletAddress) return globalWalletAddress
   const saved = localStorage.getItem('walletAddress')
   if (saved && isValidCardanoAddress(saved)) {
-    globalWalletAddress = saved
     return saved
   }
   return null
 }
 
 export function useWallet() {
-  const [address, setAddress] = useState<string | null>(() => initializeAddressFromStorage())
+  const [address, setAddress] = useState<string | null>(null)
   const [isConnecting, setIsConnecting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    const hydrateAddress = () => {
+      if (globalWalletAddress) {
+        setAddress(globalWalletAddress)
+        return
+      }
+      const stored = readAddressFromStorage()
+      if (stored) {
+        globalWalletAddress = stored
+        setAddress(stored)
+      }
+    }
+
+    hydrateAddress()
+
     const listener = (addr: string | null) => setAddress(addr)
     walletListeners.add(listener)
 
     // Sync with storage when mounting (covers manual localStorage changes)
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('walletAddress')
-      if (saved && isValidCardanoAddress(saved)) {
-        globalWalletAddress = saved
-        setAddress(saved)
-      }
       const handleStorageChange = (e: StorageEvent) => {
         if (e.key === 'walletAddress') {
           const newValue = e.newValue
