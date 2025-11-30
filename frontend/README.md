@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏛️ Cardano Community Treasury (CCT)
 
-## Getting Started
+## Welcome to the Cardano Community Treasury (CCT)
 
-First, run the development server:
+**Cardano Community Treasury (CCT)** is a decentralized DAO platform built on the Cardano Preprod testnet. It empowers communities to create transparent, multi-signature treasuries with real on-chain transactions. This guide will walk you through the app's key features and demonstrate how to use it effectively.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quick Start Guide for Judges
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This guide assumes you are familiar with Cardano wallets, testnets, and blockchain concepts. Follow the steps below to explore the app's functionality.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+### 1. **Access the App**
 
-To learn more about Next.js, take a look at the following resources:
+1. Open the app in your browser (URL provided during the hackathon).
+2. Ensure you are connected to the **Cardano Preprod testnet**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. **Connect Your Wallet**
 
-## Deploy on Vercel
+1. Supported wallets: **Nami**, **Eternl**, and other CIP-30 compatible wallets.
+2. Click the **Connect Wallet** button in the top-right corner.
+3. Select your wallet and ensure it is funded with **Preprod Test ADA** (use the [Cardano Faucet](https://docs.cardano.org/cardano-testnet/tools/faucet/) if needed).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. **Create a Community Treasury**
+
+1. Navigate to the **Create Community** page.
+2. Enter the following details:
+   - **Community Name**: e.g., "Hackathon Judges Treasury"
+   - **Description**: e.g., "A demo treasury for the Cardano Hackathon."
+   - **Treasury Wallet Address**: Provide a wallet address to hold the treasury funds.
+3. Click **Create Community**. The transaction will be signed and submitted on-chain.
+
+---
+
+### 4. **Add Leaders and Members**
+
+1. Open the **Manage Community** page for your newly created treasury.
+2. **Add Leaders**:
+   - Leaders are responsible for approving proposals.
+   - Enter wallet addresses of the leaders (e.g., your own or other test wallets).
+   - Set the **approval threshold** (e.g., 2 of 3 leaders must approve).
+3. **Add Members**:
+   - Members can create proposals but cannot approve them.
+   - Enter wallet addresses of the members.
+
+---
+
+### 5. **Create a Proposal**
+
+1. Navigate to the **Proposals** page.
+2. Click **Create Proposal** and fill in the details:
+   - **Title**: e.g., "Purchase Hackathon Swag"
+   - **Description**: e.g., "Requesting 100 ADA for swag purchases."
+   - **Amount**: e.g., 100 ADA
+   - **Recipient Wallet Address**: Provide the recipient's wallet address.
+3. Submit the proposal. The transaction will be signed and submitted on-chain.
+
+---
+
+### 6. **Approve a Proposal**
+
+1. Leaders can view pending proposals on the **Proposals** page.
+2. Click **Approve** or **Reject** for the proposal.
+3. Once the required number of approvals is met (e.g., 2 of 3), the proposal is executed, and funds are transferred.
+
+---
+
+### 7. **Explore the App**
+
+- **Treasury Dashboard**: View real-time ADA balance and transaction history (powered by the Blockfrost API).
+- **Transaction Explorer**: Click on any transaction to view it on the Cardano Explorer.
+- **Wallet Integration**: Seamlessly switch between wallets and test multi-leader approval workflows.
+
+---
+
+## Key Features Recap
+
+- **Multi-Leader Approval System**: Configurable threshold voting for proposal approvals.
+- **Role-Based Access Control**: Leaders approve, members propose.
+- **Real-Time Treasury Balance**: Live updates from the Cardano blockchain.
+- **Transaction Explorer Integration**: Direct links to Cardano Explorer for transparency.
+- **Wallet Integration**: Supports Nami, Eternl, and other CIP-30 wallets.
+
+---
+
+
+Thank you for exploring the **Cardano Community Treasury**! We hope you enjoy the demo and see the potential of this platform to empower decentralized communities.
